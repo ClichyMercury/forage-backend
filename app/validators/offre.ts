@@ -11,13 +11,12 @@ export const createOffreValidator = vine.create({
 // Admin: retenir une offre + appliquer la marge en une seule action
 export const retenirOffreValidator = vine.create({
   margeAdmin: vine.number().positive(),
-  resumePrestation: vine.string().minLength(10),
+  resumePrestation: vine.string().minLength(3),
 })
 
 // Admin: générer et envoyer le récapitulatif au client (étape 2)
-// Body: seulement prestation, prix final et délai (CDC §3.3)
 export const createOffreFinaleValidator = vine.create({
-  resumePrestation: vine.string().minLength(10),
+  resumePrestation: vine.string().minLength(3),
   prixFinalClient: vine.number().positive(),
   delaiExecution: vine.number().positive(),
 })

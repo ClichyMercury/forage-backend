@@ -127,6 +127,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'demandes.demandes.mes_offres_finales': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/demandes/offres-finales'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['mesOffresFinales']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['mesOffresFinales']>>>
+    }
+  }
   'demandes.demandes.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/demandes'
@@ -139,18 +151,6 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['index']>>>
     }
   }
-  'demandes.demandes.show': {
-    methods: ["GET","HEAD"]
-    pattern: '/api/v1/demandes/:id'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['show']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['show']>>>
-    }
-  }
   'demandes.demandes.offre_finale': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/demandes/:id/offre-finale'
@@ -161,6 +161,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['offreFinale']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['offreFinale']>>>
+    }
+  }
+  'demandes.demandes.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/demandes/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/demandes_controller').default['show']>>>
     }
   }
   'demandes.demandes.decision': {
@@ -341,6 +353,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/admin/demandes_controller').default['rejeter']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/admin/demandes_controller').default['rejeter']>>>
+    }
+  }
+  'admin.admin_demandes.cloturer': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/admin/demandes/:id/cloturer'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/admin/demandes_controller').default['cloturer']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/admin/demandes_controller').default['cloturer']>>>
     }
   }
   'admin.admin_appels_offres.store': {

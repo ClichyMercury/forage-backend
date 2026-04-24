@@ -23,8 +23,7 @@ export default class AdminOffresController {
       .preload('entreprise' as any, (q: any) => q.select(['id', 'full_name', 'email']))
       .orderBy('prix_ttc', 'asc')
 
-    if (offres.length === 0) {
-      return response.ok({
+    if (offres.length === 0) {      return response.ok({
         message: "Aucune offre reçue pour cet appel d'offre.",
         appel_offre_id: appelOffre.id,
         budget_client: demande.budgetMax,
@@ -34,10 +33,16 @@ export default class AdminOffresController {
 
     const budgetMax = parseFloat(demande.budgetMax as any)
 
-    const comparatif = offres.map((offre, index) => {
+    const DocumentModel = (await import('#models/document')).default
+
+    const comparatif = await Promise.all(offres.map(async (offre, index) => {
       const prixTtc = parseFloat(offre.prixTtc as any)
       const margeDisponible = budgetMax - prixTtc
       const dansBudget = prixTtc <= budgetMax
+
+      const documents = await DocumentModel.query()
+        .where('entity_type', 'offre')
+        .where('entity_id', offre.id)
 
       return {
         rang: index + 1,
@@ -53,8 +58,9 @@ export default class AdminOffresController {
         dans_budget: dansBudget,
         meilleure_offre: index === 0 && dansBudget,
         created_at: offre.createdAt,
+        documents: documents.map(d => ({ id: d.id, nomFichier: d.nomFichier, mimeType: d.mimeType })),
       }
-    })
+    }))
 
     const offresDansBudget = comparatif.filter((o) => o.dans_budget)
     const meilleurPrixTtc = parseFloat(offres[0].prixTtc as any)

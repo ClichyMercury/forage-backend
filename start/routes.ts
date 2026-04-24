@@ -48,9 +48,10 @@ router
     router
       .group(() => {
         router.post('/', [DemandesController, 'store'])
+        router.get('/offres-finales', [DemandesController, 'mesOffresFinales'])
         router.get('/', [DemandesController, 'index'])
-        router.get('/:id', [DemandesController, 'show'])
         router.get('/:id/offre-finale', [DemandesController, 'offreFinale'])
+        router.get('/:id', [DemandesController, 'show'])
         router.patch('/:id/decision', [DemandesController, 'decision'])
         router.get('/:demandeId/messages', [MessagesController, 'index'])
         router.post('/:demandeId/messages', [MessagesController, 'store'])
@@ -98,6 +99,7 @@ router
         router.get('demandes/:id', [AdminDemandesController, 'show'])
         router.patch('demandes/:id/valider', [AdminDemandesController, 'valider'])
         router.patch('demandes/:id/rejeter', [AdminDemandesController, 'rejeter'])
+        router.patch('demandes/:id/cloturer', [AdminDemandesController, 'cloturer'])
 
         // Appels d'offres
         router.post('appels-offres', [AdminAppelsOffresController, 'store'])

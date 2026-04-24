@@ -28,9 +28,10 @@ export interface ApiDefinition {
   demandes: {
     demandes: {
       store: typeof routes['demandes.demandes.store']
+      mesOffresFinales: typeof routes['demandes.demandes.mes_offres_finales']
       index: typeof routes['demandes.demandes.index']
-      show: typeof routes['demandes.demandes.show']
       offreFinale: typeof routes['demandes.demandes.offre_finale']
+      show: typeof routes['demandes.demandes.show']
       decision: typeof routes['demandes.demandes.decision']
     }
     messages: {
@@ -66,6 +67,7 @@ export interface ApiDefinition {
       show: typeof routes['admin.admin_demandes.show']
       valider: typeof routes['admin.admin_demandes.valider']
       rejeter: typeof routes['admin.admin_demandes.rejeter']
+      cloturer: typeof routes['admin.admin_demandes.cloturer']
     }
     adminAppelsOffres: {
       store: typeof routes['admin.admin_appels_offres.store']

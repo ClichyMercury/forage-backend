@@ -83,7 +83,30 @@ export default class AdminDemandesController {
     return response.ok({ message: 'Demande validée avec succès.', demande })
   }
 
-  // Rejeter une demande (CDC §3.3)
+  // Clôturer une demande (après acceptation — chantier terminé)
+  async cloturer({ auth, params, response }: HttpContext) {
+    const user = auth.getUserOrFail()
+    if (user.role !== 'admin') return response.forbidden({ message: 'Accès refusé' })
+
+    const demande = await Demande.findOrFail(params.id)
+    if (demande.statut !== 'acceptee') {
+      return response.badRequest({ message: `Impossible de clôturer une demande avec le statut "${demande.statut}". La demande doit être acceptée.` })
+    }
+
+    demande.statut = 'cloturee'
+    await demande.save()
+
+    // Notifier le client
+    await Notification.create({
+      userId: demande.clientId,
+      type: 'demande_validee',
+      canal: 'interne',
+      contenu: `Votre dossier #${demande.id} a été clôturé. Le chantier est terminé.`,
+      lu: false,
+    })
+
+    return response.ok({ message: 'Dossier clôturé avec succès.', demande })
+  }
   async rejeter({ auth, params, response }: HttpContext) {
     const user = auth.getUserOrFail()
     if (user.role !== 'admin') return response.forbidden({ message: 'Accès refusé' })

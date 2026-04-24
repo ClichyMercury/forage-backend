@@ -62,7 +62,7 @@ export default class AppelsOffresController {
       .where('id', params.id)
       .whereHas('entreprises', (q) => q.where('users.id', user.id))
       .preload('demande', (q) => {
-        q.select(['id', 'type_forage', 'description', 'localisation_adresse', 'profondeur_estimee', 'delai_souhaite', 'statut', 'created_at'])
+        q.select(['id', 'type_forage', 'description', 'localisation_adresse', 'localisation_lat', 'localisation_lng', 'profondeur_estimee', 'delai_souhaite', 'statut', 'created_at'])
       })
       .firstOrFail()
 
@@ -70,8 +70,18 @@ export default class AppelsOffresController {
     const delai = DateTime.fromJSDate(ao.delaiReponse as any)
     const resteSecondes = delai.diff(maintenant, 'seconds').seconds
 
+    // Charger les documents de la demande (sans budget — CDC §3.2)
+    const Document = (await import('#models/document')).default
+    const documents = await Document.query()
+      .where('entity_type', 'demande')
+      .where('entity_id', ao.demandeId)
+
     return response.ok({
       ...ao.toJSON(),
+      demande: {
+        ...ao.demande?.toJSON(),
+        documents: documents.map(d => ({ id: d.id, nomFichier: d.nomFichier, mimeType: d.mimeType })),
+      },
       compte_a_rebours: {
         expire: resteSecondes <= 0,
         secondes_restantes: resteSecondes <= 0 ? 0 : Math.floor(resteSecondes),
