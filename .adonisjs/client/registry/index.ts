@@ -66,23 +66,29 @@ const routes = {
     tokens: [{"old":"/api/v1/demandes","type":0,"val":"api","end":""},{"old":"/api/v1/demandes","type":0,"val":"v1","end":""},{"old":"/api/v1/demandes","type":0,"val":"demandes","end":""}],
     types: placeholder as Registry['demandes.demandes.store']['types'],
   },
+  'demandes.demandes.mes_offres_finales': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/demandes/offres-finales',
+    tokens: [{"old":"/api/v1/demandes/offres-finales","type":0,"val":"api","end":""},{"old":"/api/v1/demandes/offres-finales","type":0,"val":"v1","end":""},{"old":"/api/v1/demandes/offres-finales","type":0,"val":"demandes","end":""},{"old":"/api/v1/demandes/offres-finales","type":0,"val":"offres-finales","end":""}],
+    types: placeholder as Registry['demandes.demandes.mes_offres_finales']['types'],
+  },
   'demandes.demandes.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/demandes',
     tokens: [{"old":"/api/v1/demandes","type":0,"val":"api","end":""},{"old":"/api/v1/demandes","type":0,"val":"v1","end":""},{"old":"/api/v1/demandes","type":0,"val":"demandes","end":""}],
     types: placeholder as Registry['demandes.demandes.index']['types'],
   },
-  'demandes.demandes.show': {
-    methods: ["GET","HEAD"],
-    pattern: '/api/v1/demandes/:id',
-    tokens: [{"old":"/api/v1/demandes/:id","type":0,"val":"api","end":""},{"old":"/api/v1/demandes/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/demandes/:id","type":0,"val":"demandes","end":""},{"old":"/api/v1/demandes/:id","type":1,"val":"id","end":""}],
-    types: placeholder as Registry['demandes.demandes.show']['types'],
-  },
   'demandes.demandes.offre_finale': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/demandes/:id/offre-finale',
     tokens: [{"old":"/api/v1/demandes/:id/offre-finale","type":0,"val":"api","end":""},{"old":"/api/v1/demandes/:id/offre-finale","type":0,"val":"v1","end":""},{"old":"/api/v1/demandes/:id/offre-finale","type":0,"val":"demandes","end":""},{"old":"/api/v1/demandes/:id/offre-finale","type":1,"val":"id","end":""},{"old":"/api/v1/demandes/:id/offre-finale","type":0,"val":"offre-finale","end":""}],
     types: placeholder as Registry['demandes.demandes.offre_finale']['types'],
+  },
+  'demandes.demandes.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/demandes/:id',
+    tokens: [{"old":"/api/v1/demandes/:id","type":0,"val":"api","end":""},{"old":"/api/v1/demandes/:id","type":0,"val":"v1","end":""},{"old":"/api/v1/demandes/:id","type":0,"val":"demandes","end":""},{"old":"/api/v1/demandes/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['demandes.demandes.show']['types'],
   },
   'demandes.demandes.decision': {
     methods: ["PATCH"],
@@ -173,6 +179,12 @@ const routes = {
     pattern: '/api/v1/admin/demandes/:id/rejeter',
     tokens: [{"old":"/api/v1/admin/demandes/:id/rejeter","type":0,"val":"api","end":""},{"old":"/api/v1/admin/demandes/:id/rejeter","type":0,"val":"v1","end":""},{"old":"/api/v1/admin/demandes/:id/rejeter","type":0,"val":"admin","end":""},{"old":"/api/v1/admin/demandes/:id/rejeter","type":0,"val":"demandes","end":""},{"old":"/api/v1/admin/demandes/:id/rejeter","type":1,"val":"id","end":""},{"old":"/api/v1/admin/demandes/:id/rejeter","type":0,"val":"rejeter","end":""}],
     types: placeholder as Registry['admin.admin_demandes.rejeter']['types'],
+  },
+  'admin.admin_demandes.cloturer': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/admin/demandes/:id/cloturer',
+    tokens: [{"old":"/api/v1/admin/demandes/:id/cloturer","type":0,"val":"api","end":""},{"old":"/api/v1/admin/demandes/:id/cloturer","type":0,"val":"v1","end":""},{"old":"/api/v1/admin/demandes/:id/cloturer","type":0,"val":"admin","end":""},{"old":"/api/v1/admin/demandes/:id/cloturer","type":0,"val":"demandes","end":""},{"old":"/api/v1/admin/demandes/:id/cloturer","type":1,"val":"id","end":""},{"old":"/api/v1/admin/demandes/:id/cloturer","type":0,"val":"cloturer","end":""}],
+    types: placeholder as Registry['admin.admin_demandes.cloturer']['types'],
   },
   'admin.admin_appels_offres.store': {
     methods: ["POST"],

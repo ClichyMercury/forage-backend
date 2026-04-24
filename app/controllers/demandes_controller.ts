@@ -90,6 +90,22 @@ export default class DemandesController {
   }
 
   /**
+   * GET /api/v1/demandes/offres-finales
+   * Client: toutes ses offres finales reçues
+   */
+  async mesOffresFinales({ auth, response }: HttpContext) {
+    const user = auth.getUserOrFail()
+    if (user.role !== 'client') return response.forbidden({ message: 'Accès refusé' })
+
+    const offresFinales = await OffreFinale.query()
+      .whereHas('demande', (q) => q.where('client_id', user.id))
+      .preload('demande')
+      .orderBy('created_at', 'desc')
+
+    return response.ok(offresFinales)
+  }
+
+  /**
    * GET /api/v1/demandes
    * CDC §3.1 — Tableau de bord client avec statut en temps réel
    * Statuts: En attente → Offres en cours → Offre reçue → Acceptée / Refusée / Clôturée

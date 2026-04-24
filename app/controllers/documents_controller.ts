@@ -137,8 +137,14 @@ export default class DocumentsController {
       if (user.role === 'client' && demande.clientId !== user.id) {
         return response.forbidden({ message: 'Accès refusé' })
       }
+      // Entreprise : accès autorisé si elle est invitée sur un AO lié à cette demande
       if (user.role === 'entreprise') {
-        return response.forbidden({ message: 'Accès refusé' })
+        const AppelOffre = (await import('#models/appel_offre')).default
+        const ao = await AppelOffre.query()
+          .where('demande_id', demande.id)
+          .whereHas('entreprises', (q) => q.where('users.id', user.id))
+          .first()
+        if (!ao) return response.forbidden({ message: 'Accès refusé' })
       }
     }
 
