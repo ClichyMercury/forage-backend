@@ -13,6 +13,9 @@ tmp/*
 # Frontend assets compiled code
 public/assets
 
+# Uploaded files (user content)
+uploads
+
 # Build tools specific
 npm-debug.log
 yarn-error.log

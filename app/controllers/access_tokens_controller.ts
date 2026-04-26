@@ -7,12 +7,21 @@ export default class AccessTokensController {
   async store({ request, serialize, response }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
 
-    const user = await User.verifyCredentials(email, password)
+    let user
+    try {
+      user = await User.verifyCredentials(email, password)
+    } catch (err: any) {
+      // L'exception InvalidCredentialsException du package @adonisjs/auth
+      // a un message en anglais — on le remplace par un message FR clair.
+      return response.unauthorized({
+        message: 'Email ou mot de passe incorrect.',
+      })
+    }
 
     // Bloquer la connexion si le compte est inactif (CDC §3.2)
     if (!user.isActive) {
       return response.forbidden({
-        message: 'Votre compte est en attente de validation par l\'administrateur. Vous recevrez un email dès que votre compte sera activé.',
+        message: 'Votre compte est en attente de validation. Vous recevrez un email dès qu\'il sera activé.',
       })
     }
 

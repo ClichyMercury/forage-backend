@@ -7,6 +7,23 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class AppelOffreEntrepriseSchema extends BaseModel {
+  static $columns = ['appelOffreId', 'createdAt', 'entrepriseId', 'id', 'notifieAt', 'updatedAt'] as const
+  $columns = AppelOffreEntrepriseSchema.$columns
+  @column()
+  declare appelOffreId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare entrepriseId: number
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare notifieAt: DateTime | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class AppelsOffreSchema extends BaseModel {
   static $columns = ['createdAt', 'delaiReponse', 'demandeId', 'id', 'lancePar', 'statut', 'updatedAt'] as const
   $columns = AppelsOffreSchema.$columns
@@ -22,23 +39,6 @@ export class AppelsOffreSchema extends BaseModel {
   declare lancePar: number
   @column()
   declare statut: string
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
-}
-
-export class AppelOffreEntrepriseSchema extends BaseModel {
-  static $columns = ['appelOffreId', 'createdAt', 'entrepriseId', 'id', 'notifieAt', 'updatedAt'] as const
-  $columns = AppelOffreEntrepriseSchema.$columns
-  @column()
-  declare appelOffreId: number
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-  @column()
-  declare entrepriseId: number
-  @column({ isPrimary: true })
-  declare id: number
-  @column.dateTime()
-  declare notifieAt: DateTime | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
@@ -132,7 +132,7 @@ export class EntrepriseProfileSchema extends BaseModel {
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
-  declare domaines: string | null
+  declare domaines: any | null
   @column({ isPrimary: true })
   declare id: number
   @column()
@@ -148,7 +148,7 @@ export class EntrepriseProfileSchema extends BaseModel {
   @column()
   declare validatedBy: number | null
   @column()
-  declare zonesGeographiques: string | null
+  declare zonesGeographiques: any | null
 }
 
 export class MessageSchema extends BaseModel {
@@ -168,6 +168,21 @@ export class MessageSchema extends BaseModel {
   declare receiverId: number
   @column()
   declare senderId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class NotificationSettingSchema extends BaseModel {
+  static $columns = ['actif', 'createdAt', 'id', 'type', 'updatedAt'] as const
+  $columns = NotificationSettingSchema.$columns
+  @column()
+  declare actif: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare type: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
@@ -193,21 +208,6 @@ export class NotificationSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
-}
-
-export class NotificationSettingSchema extends BaseModel {
-  static $columns = ['actif', 'createdAt', 'id', 'type', 'updatedAt'] as const
-  $columns = NotificationSettingSchema.$columns
-  @column()
-  declare actif: boolean
-  @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
-  @column({ isPrimary: true })
-  declare id: number
-  @column()
-  declare type: string
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
 }
 
 export class OffreSchema extends BaseModel {

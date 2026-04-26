@@ -146,7 +146,7 @@ export default class MailService {
   // Validation compte entreprise (CDC §3.2)
   static async compteEntrepriseValide(to: string, data: { raisonSociale: string }) {    await this.send(to, '✅ Votre compte entreprise a été validé', `
       <h2>Bonjour ${data.raisonSociale},</h2>
-      <p>Votre compte entreprise a été validé par l'administrateur.</p>
+      <p>Votre compte entreprise a été validé par notre équipe.</p>
       <p>Vous pouvez maintenant vous connecter et répondre aux appels d'offres.</p>
       <p>— ${env.get('MAIL_FROM_NAME')}</p>
     `)
