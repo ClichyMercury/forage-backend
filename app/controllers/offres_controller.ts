@@ -27,7 +27,7 @@ export default class OffresController {
     if (user.role !== 'entreprise') return response.forbidden({ message: 'Accès refusé' })
 
     if (!user.isActive) {
-      return response.forbidden({ message: "Votre compte est en attente de validation par l'administrateur" })
+      return response.forbidden({ message: 'Votre compte est en attente de validation.' })
     }
 
     const appelOffre = await AppelOffre.findOrFail(params.appelOffreId)

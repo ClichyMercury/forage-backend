@@ -23,11 +23,19 @@ export default class AdminOffresController {
       .preload('entreprise' as any, (q: any) => q.select(['id', 'full_name', 'email']))
       .orderBy('prix_ttc', 'asc')
 
-    if (offres.length === 0) {      return response.ok({
+    if (offres.length === 0) {
+      return response.ok({
         message: "Aucune offre reçue pour cet appel d'offre.",
         appel_offre_id: appelOffre.id,
-        budget_client: demande.budgetMax,
+        demande_id: demande.id,
+        budget_client: parseFloat(demande.budgetMax as any),
         comparatif: [],
+        resume: {
+          total_offres: 0,
+          offres_dans_budget: 0,
+          meilleur_prix_ttc: null,
+          marge_max_disponible: null,
+        },
       })
     }
 

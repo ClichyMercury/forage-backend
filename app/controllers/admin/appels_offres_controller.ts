@@ -2,6 +2,7 @@ import AppelOffre from '#models/appel_offre'
 import Demande from '#models/demande'
 import { createAppelOffreValidator } from '#validators/appel_offre'
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon'
 
 export default class AdminAppelsOffresController {
   // Admin: lancer un appel d'offre
@@ -25,9 +26,11 @@ export default class AdminAppelsOffresController {
     })
 
     // Attacher les entreprises invitées
+    const now = DateTime.now().toFormat('yyyy-MM-dd HH:mm:ss')
+    type PivotRow = { notifie_at: string; created_at: string; updated_at: string }
     await appelOffre.related('entreprises').attach(
-      entrepriseIds.reduce((acc: Record<number, { notifie_at: string }>, id: number) => {
-        acc[id] = { notifie_at: new Date().toISOString() }
+      entrepriseIds.reduce((acc: Record<number, PivotRow>, id: number) => {
+        acc[id] = { notifie_at: now, created_at: now, updated_at: now }
         return acc
       }, {})
     )
@@ -60,7 +63,7 @@ export default class AdminAppelsOffresController {
           appelOffreId: appelOffre.id,
           typeForage: demande.typeForage,
           localisation: demande.localisationAdresse,
-          delaiReponse: new Date(delaiReponse).toLocaleDateString('fr-CI'),
+          delaiReponse: delaiReponse.toFormat('dd/MM/yyyy'),
         })
       }
     } catch (e) {

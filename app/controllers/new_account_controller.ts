@@ -49,7 +49,7 @@ export default class NewAccountController {
     })
 
     return serialize({
-      message: "Compte entreprise créé. En attente de validation par l'administrateur.",
+      message: 'Compte entreprise créé. En attente de validation par notre équipe.',
       user: UserTransformer.transform(user),
     })
   }
