@@ -82,7 +82,7 @@ export default class AdminAppelsOffresController {
     if (user.role !== 'admin') return response.forbidden({ message: 'Accès refusé' })
 
     const appelsOffres = await AppelOffre.query()
-      .preload('demande')
+      .preload('demande' as any)
       .preload('entreprises')
       .orderBy('created_at', 'desc')
 

@@ -11,7 +11,7 @@ export default class AppelsOffresController {
 
     const appelsOffres = await AppelOffre.query()
       .whereHas('entreprises', (q) => q.where('users.id', user.id))
-      .preload('demande', (q) => {
+      .preload('demande' as any, (q: any) => {
         q.select(['id', 'type_forage', 'description', 'localisation_adresse', 'profondeur_estimee', 'delai_souhaite', 'statut', 'created_at'])
       })
       .orderBy('created_at', 'desc')
@@ -61,7 +61,7 @@ export default class AppelsOffresController {
     const ao = await AppelOffre.query()
       .where('id', params.id)
       .whereHas('entreprises', (q) => q.where('users.id', user.id))
-      .preload('demande', (q) => {
+      .preload('demande' as any, (q: any) => {
         q.select(['id', 'type_forage', 'description', 'localisation_adresse', 'localisation_lat', 'localisation_lng', 'profondeur_estimee', 'delai_souhaite', 'statut', 'created_at'])
       })
       .firstOrFail()

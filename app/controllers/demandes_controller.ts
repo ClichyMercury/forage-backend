@@ -98,8 +98,8 @@ export default class DemandesController {
     if (user.role !== 'client') return response.forbidden({ message: 'Accès refusé' })
 
     const offresFinales = await OffreFinale.query()
-      .whereHas('demande', (q) => q.where('client_id', user.id))
-      .preload('demande')
+      .whereHas('demande' as any, (q: any) => q.where('client_id', user.id))
+      .preload('demande' as any)
       .orderBy('created_at', 'desc')
 
     return response.ok(offresFinales)

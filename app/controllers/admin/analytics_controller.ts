@@ -1,6 +1,5 @@
 import Demande from '#models/demande'
 import OffreFinale from '#models/offre_finale'
-import Offre from '#models/offre'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
 import { DateTime } from 'luxon'
