@@ -36,6 +36,18 @@ const routes = {
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['account.profile.update']['types'],
   },
+  'account.profile.upload_avatar': {
+    methods: ["POST"],
+    pattern: '/api/v1/account/profile/avatar',
+    tokens: [{"old":"/api/v1/account/profile/avatar","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"profile","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"avatar","end":""}],
+    types: placeholder as Registry['account.profile.upload_avatar']['types'],
+  },
+  'account.profile.remove_avatar': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/account/profile/avatar',
+    tokens: [{"old":"/api/v1/account/profile/avatar","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"profile","end":""},{"old":"/api/v1/account/profile/avatar","type":0,"val":"avatar","end":""}],
+    types: placeholder as Registry['account.profile.remove_avatar']['types'],
+  },
   'account.access_tokens.destroy': {
     methods: ["POST"],
     pattern: '/api/v1/account/logout',

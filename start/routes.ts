@@ -1,6 +1,26 @@
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
+import app from '@adonisjs/core/services/app'
+import { createReadStream, existsSync } from 'node:fs'
+import { extname } from 'node:path'
+
+const MIME: Record<string, string> = {
+  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
+  '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml',
+  '.pdf': 'application/pdf',
+}
+
+// ─── Fichiers statiques (uploads publics) ────────────────────────────────────
+router.get('/uploads/*', ({ request, response }) => {
+  const pathname = decodeURIComponent(request.parsedUrl.pathname ?? request.url())
+  const filePath = app.makePath(pathname.replace(/^\//, ''))
+  if (!existsSync(filePath)) return response.notFound({ message: 'Fichier introuvable' })
+  const mime = MIME[extname(filePath).toLowerCase()] ?? 'application/octet-stream'
+  response.header('Content-Type', mime)
+  response.header('Cache-Control', 'public, max-age=86400')
+  return response.stream(createReadStream(filePath))
+})
 
 const DemandesController = () => import('#controllers/demandes_controller')
 const AppelsOffresController = () => import('#controllers/appels_offres_controller')
@@ -33,6 +53,8 @@ router
       .group(() => {
         router.get('profile', [controllers.Profile, 'show'])
         router.patch('profile', [controllers.Profile, 'update'])
+        router.post('profile/avatar', [controllers.Profile, 'uploadAvatar'])
+        router.delete('profile/avatar', [controllers.Profile, 'removeAvatar'])
         router.post('logout', [controllers.AccessTokens, 'destroy'])
 
         // Notifications

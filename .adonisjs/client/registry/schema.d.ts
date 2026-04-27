@@ -67,6 +67,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'account.profile.upload_avatar': {
+    methods: ["POST"]
+    pattern: '/api/v1/account/profile/avatar'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['uploadAvatar']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['uploadAvatar']>>>
+    }
+  }
+  'account.profile.remove_avatar': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/account/profile/avatar'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['removeAvatar']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['removeAvatar']>>>
+    }
+  }
   'account.access_tokens.destroy': {
     methods: ["POST"]
     pattern: '/api/v1/account/logout'
