@@ -151,4 +151,33 @@ export default class MailService {
       <p>— ${env.get('MAIL_FROM_NAME')}</p>
     `)
   }
+
+  // Réinitialisation mot de passe
+  static async resetPassword(to: string, data: { fullName: string; token: string }) {
+    // L'URL du frontend — en prod ce sera votre domaine
+    const frontendUrl = env.get('FRONTEND_URL', 'http://localhost:5173')
+    const resetLink = `${frontendUrl}/reset-password?token=${data.token}`
+
+    await this.send(to, '🔐 Réinitialisation de votre mot de passe — ForageCI', `
+      <div style="font-family:sans-serif;max-width:520px;margin:0 auto">
+        <h2 style="color:#1e3fff">Bonjour ${data.fullName},</h2>
+        <p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
+        <p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe :</p>
+        <div style="text-align:center;margin:32px 0">
+          <a href="${resetLink}"
+            style="background:#1e3fff;color:#fff;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;display:inline-block">
+            Réinitialiser mon mot de passe
+          </a>
+        </div>
+        <p style="color:#64748b;font-size:13px">
+          Ce lien est valable <strong>1 heure</strong>. Si vous n'avez pas fait cette demande, ignorez cet email.
+        </p>
+        <p style="color:#64748b;font-size:12px;word-break:break-all">
+          Lien direct : ${resetLink}
+        </p>
+        <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0" />
+        <p style="color:#94a3b8;font-size:12px">— ${env.get('MAIL_FROM_NAME')}</p>
+      </div>
+    `)
+  }
 }

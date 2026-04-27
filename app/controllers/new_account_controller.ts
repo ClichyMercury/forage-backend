@@ -3,6 +3,7 @@ import EntrepriseProfile from '#models/entreprise_profile'
 import { signupValidator, signupEntrepriseValidator } from '#validators/user'
 import type { HttpContext } from '@adonisjs/core/http'
 import UserTransformer from '#transformers/user_transformer'
+import { request } from 'node:http'
 
 export default class NewAccountController {
   // Inscription client (CDC §3.1)

@@ -7,6 +7,9 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.store_entreprise': { paramsTuple?: []; params?: {} }
     'auth.access_tokens.store': { paramsTuple?: []; params?: {} }
+    'auth.password_reset.forgot_password': { paramsTuple?: []; params?: {} }
+    'auth.password_reset.reset_password': { paramsTuple?: []; params?: {} }
+    'auth.password_reset.verify_token': { paramsTuple?: []; params?: {} }
     'account.profile.show': { paramsTuple?: []; params?: {} }
     'account.profile.update': { paramsTuple?: []; params?: {} }
     'account.profile.upload_avatar': { paramsTuple?: []; params?: {} }
@@ -55,6 +58,7 @@ export type ScannedRoutes = {
     'admin.notifications.toggle_type': { paramsTuple: [ParamValue]; params: {'type': ParamValue} }
   }
   GET: {
+    'auth.password_reset.verify_token': { paramsTuple?: []; params?: {} }
     'account.profile.show': { paramsTuple?: []; params?: {} }
     'account.notifications.index': { paramsTuple?: []; params?: {} }
     'demandes.demandes.mes_offres_finales': { paramsTuple?: []; params?: {} }
@@ -79,6 +83,7 @@ export type ScannedRoutes = {
     'admin.notifications.settings': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
+    'auth.password_reset.verify_token': { paramsTuple?: []; params?: {} }
     'account.profile.show': { paramsTuple?: []; params?: {} }
     'account.notifications.index': { paramsTuple?: []; params?: {} }
     'demandes.demandes.mes_offres_finales': { paramsTuple?: []; params?: {} }
@@ -106,6 +111,8 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.store_entreprise': { paramsTuple?: []; params?: {} }
     'auth.access_tokens.store': { paramsTuple?: []; params?: {} }
+    'auth.password_reset.forgot_password': { paramsTuple?: []; params?: {} }
+    'auth.password_reset.reset_password': { paramsTuple?: []; params?: {} }
     'account.profile.upload_avatar': { paramsTuple?: []; params?: {} }
     'account.access_tokens.destroy': { paramsTuple?: []; params?: {} }
     'demandes.demandes.store': { paramsTuple?: []; params?: {} }

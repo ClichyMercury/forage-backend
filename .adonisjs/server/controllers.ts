@@ -20,4 +20,5 @@ export const controllers = {
   Notifications: () => import('#controllers/notifications_controller'),
   Offres: () => import('#controllers/offres_controller'),
   Profile: () => import('#controllers/profile_controller'),
+  PasswordReset: () => import('#controllers/password_reset_controller'),
 }
