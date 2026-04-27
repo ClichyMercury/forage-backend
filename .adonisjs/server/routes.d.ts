@@ -9,6 +9,8 @@ export type ScannedRoutes = {
     'auth.access_tokens.store': { paramsTuple?: []; params?: {} }
     'account.profile.show': { paramsTuple?: []; params?: {} }
     'account.profile.update': { paramsTuple?: []; params?: {} }
+    'account.profile.upload_avatar': { paramsTuple?: []; params?: {} }
+    'account.profile.remove_avatar': { paramsTuple?: []; params?: {} }
     'account.access_tokens.destroy': { paramsTuple?: []; params?: {} }
     'account.notifications.index': { paramsTuple?: []; params?: {} }
     'account.notifications.mark_read': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -104,6 +106,7 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.store_entreprise': { paramsTuple?: []; params?: {} }
     'auth.access_tokens.store': { paramsTuple?: []; params?: {} }
+    'account.profile.upload_avatar': { paramsTuple?: []; params?: {} }
     'account.access_tokens.destroy': { paramsTuple?: []; params?: {} }
     'demandes.demandes.store': { paramsTuple?: []; params?: {} }
     'demandes.messages.store': { paramsTuple: [ParamValue]; params: {'demandeId': ParamValue} }
@@ -128,6 +131,7 @@ export type ScannedRoutes = {
     'admin.notifications.toggle_type': { paramsTuple: [ParamValue]; params: {'type': ParamValue} }
   }
   DELETE: {
+    'account.profile.remove_avatar': { paramsTuple?: []; params?: {} }
     'documents.documents.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'admin.admin_users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }

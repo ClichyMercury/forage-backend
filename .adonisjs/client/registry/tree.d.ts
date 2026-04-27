@@ -15,6 +15,8 @@ export interface ApiDefinition {
     profile: {
       show: typeof routes['account.profile.show']
       update: typeof routes['account.profile.update']
+      uploadAvatar: typeof routes['account.profile.upload_avatar']
+      removeAvatar: typeof routes['account.profile.remove_avatar']
     }
     accessTokens: {
       destroy: typeof routes['account.access_tokens.destroy']

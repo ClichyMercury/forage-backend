@@ -22,6 +22,9 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
   @column()
   declare isActive: boolean
 
+  @column()
+  declare avatarUrl: string | null
+
   @hasOne(() => EntrepriseProfile, { foreignKey: 'userId' })
   declare entrepriseProfile: HasOne<typeof EntrepriseProfile>
 
