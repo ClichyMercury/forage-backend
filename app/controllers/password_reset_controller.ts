@@ -9,12 +9,6 @@ export default class PasswordResetController {
 
   /**
    * POST /api/v1/auth/forgot-password
-   *
-   * L'utilisateur envoie son email.
-   * On génère un token, on le stocke, on envoie l'email.
-   *
-   * SÉCURITÉ : On répond toujours "email envoyé" même si l'email n'existe pas.
-   * Pourquoi ? Pour ne pas révéler quels emails sont enregistrés sur la plateforme.
    */
   async forgotPassword({ request, response }: HttpContext) {
     const { email } = request.only(['email'])
@@ -23,26 +17,19 @@ export default class PasswordResetController {
       return response.badRequest({ message: 'Email requis.' })
     }
 
-    // Chercher l'utilisateur — on continue même s'il n'existe pas (sécurité)
     const user = await User.findBy('email', email)
 
     if (user) {
-      // Supprimer les anciens tokens de cet email (nettoyage)
       await PasswordResetToken.query().where('email', email).delete()
 
-      // Générer un token aléatoire de 32 caractères
-      // string.generateRandom() vient d'AdonisJS — génère une chaîne alphanumérique sécurisée
       const rawToken = string.generateRandom(32)
 
-      // Stocker le token en base avec expiration dans 1 heure
-      // DateTime.now().plus({ hours: 1 }) = maintenant + 1 heure
       await PasswordResetToken.create({
         email,
         token: rawToken,
         expiresAt: DateTime.now().plus({ hours: 1 }),
       })
 
-      // Envoyer l'email avec le lien de réinitialisation
       try {
         const MailService = (await import('#services/mail_service')).default
         await MailService.resetPassword(email, {
@@ -54,7 +41,6 @@ export default class PasswordResetController {
       }
     }
 
-    // Toujours répondre la même chose (sécurité anti-énumération)
     return response.ok({
       message: 'Si cet email existe, un lien de réinitialisation a été envoyé.',
     })
@@ -62,9 +48,6 @@ export default class PasswordResetController {
 
   /**
    * POST /api/v1/auth/reset-password
-   *
-   * L'utilisateur envoie : token + nouveau mot de passe.
-   * On vérifie le token, on met à jour le mot de passe, on supprime le token.
    */
   async resetPassword({ request, response }: HttpContext) {
     const { token, password, passwordConfirmation } = request.only([
@@ -118,9 +101,7 @@ export default class PasswordResetController {
 
   /**
    * GET /api/v1/auth/verify-reset-token?token=xxx
-   *
-   * Vérifier si un token est valide AVANT que l'utilisateur remplisse le formulaire.
-   * Évite de remplir le formulaire pour rien si le lien est expiré.
+
    */
   async verifyToken({ request, response }: HttpContext) {
     const { token } = request.qs()
