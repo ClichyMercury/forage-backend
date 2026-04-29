@@ -1,0 +1,4 @@
+# CODEOWNERS — auto-assigne @ClichyMercury comme reviewer sur toute PR
+# Doc: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+* @ClichyMercury
