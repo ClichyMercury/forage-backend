@@ -22,6 +22,7 @@ router.get('/uploads/*', ({ request, response }) => {
   return response.stream(createReadStream(filePath))
 })
 
+const PasswordResetController = () => import('#controllers/password_reset_controller')
 const DemandesController = () => import('#controllers/demandes_controller')
 const AppelsOffresController = () => import('#controllers/appels_offres_controller')
 const OffresController = () => import('#controllers/offres_controller')
@@ -44,6 +45,10 @@ router
         router.post('register', [controllers.NewAccount, 'store'])
         router.post('register/entreprise', [controllers.NewAccount, 'storeEntreprise'])
         router.post('login', [controllers.AccessTokens, 'store'])
+        // Mot de passe oublié — pas besoin d'être connecté
+        router.post('forgot-password', [PasswordResetController, 'forgotPassword'])
+        router.post('reset-password', [PasswordResetController, 'resetPassword'])
+        router.get('verify-reset-token', [PasswordResetController, 'verifyToken'])
       })
       .prefix('auth')
       .as('auth')

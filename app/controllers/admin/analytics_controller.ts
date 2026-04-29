@@ -90,16 +90,35 @@ export default class AdminAnalyticsController {
         .orderBy('taux_selection', 'desc')
         .limit(10),
 
-      // Alertes: demandes sans réponse (aucune offre soumise) depuis plus de 7 jours
+      // Alertes: demandes sans réponse depuis plus de 7 jours
+      // Cas 1 : demande en_attente depuis +7j (pas encore validée)
+      // Cas 2 : AO lancé depuis +7j sans aucune offre soumise
       db
         .from('demandes')
         .leftJoin('appels_offres', 'appels_offres.demande_id', 'demandes.id')
         .leftJoin('offres', 'offres.appel_offre_id', 'appels_offres.id')
-        .select('demandes.id', 'demandes.localisation_adresse', 'demandes.created_at', 'demandes.statut')
-        .where('demandes.statut', 'appel_offre_lance')
-        .whereNull('offres.id')
-        .where('demandes.created_at', '<=', DateTime.now().minus({ days: 7 }).toSQL()!)
-        .groupBy('demandes.id'),
+        .select(
+          'demandes.id',
+          'demandes.localisation_adresse',
+          'demandes.type_forage',
+          'demandes.created_at',
+          'demandes.statut'
+        )
+        .where((q) => {
+          q.where((sub) => {
+            sub
+              .where('demandes.statut', 'en_attente')
+              .where('demandes.created_at', '<=', DateTime.now().minus({ days: 7 }).toSQL()!)
+          }).orWhere((sub) => {
+            sub
+              .where('demandes.statut', 'appel_offre_lance')
+              .whereNull('offres.id')
+              .where('demandes.created_at', '<=', DateTime.now().minus({ days: 7 }).toSQL()!)
+          })
+        })
+        .groupBy('demandes.id')
+        .orderBy('demandes.created_at', 'asc')
+        .limit(20),
     ])
 
     const totalGlobal = Number((totalDemandesGlobal as any).$extras.total)

@@ -42,4 +42,7 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // CORS (comma-separated list of allowed origins for production)
   CORS_ORIGIN: Env.schema.string.optional(),
+
+  // Frontend URL (used in transactional emails)
+  FRONTEND_URL: Env.schema.string.optional(),
 })

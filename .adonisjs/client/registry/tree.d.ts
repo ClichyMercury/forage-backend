@@ -10,6 +10,11 @@ export interface ApiDefinition {
     accessTokens: {
       store: typeof routes['auth.access_tokens.store']
     }
+    passwordReset: {
+      forgotPassword: typeof routes['auth.password_reset.forgot_password']
+      resetPassword: typeof routes['auth.password_reset.reset_password']
+      verifyToken: typeof routes['auth.password_reset.verify_token']
+    }
   }
   account: {
     profile: {
