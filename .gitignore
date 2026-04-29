@@ -27,3 +27,6 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
+
+# Notes privées (release notes, brouillons)
+docs/RELEASE_NOTES_*.md
