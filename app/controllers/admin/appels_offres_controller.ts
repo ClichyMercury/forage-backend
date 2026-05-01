@@ -15,7 +15,7 @@ export default class AdminAppelsOffresController {
 
     const demande = await Demande.findOrFail(demandeId)
     if (demande.statut !== 'validee') {
-      return response.badRequest({ message: 'La demande doit être validée avant de lancer un AO' })
+      return response.badRequest({ message: 'La demande doit être validée avant de lancer un appel d\'offre' })
     }
 
     const appelOffre = await AppelOffre.create({

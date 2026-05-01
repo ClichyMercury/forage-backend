@@ -131,7 +131,7 @@ export default class AdminOffresController {
       })
     }
 
-    // Marquer toutes les autres offres du même AO comme non_retenue
+    // Marquer toutes les autres offres du même appel d'offre comme non_retenue
     await Offre.query()
       .where('appel_offre_id', offre.appelOffreId)
       .whereNot('id', offre.id)

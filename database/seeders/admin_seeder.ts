@@ -11,9 +11,9 @@ export default class AdminSeeder extends BaseSeeder {
 
     await User.create({
       fullName: 'Administrateur',
-      email: 'admin@forage.ci',
-      password: 'Admin@2025',
-      telephone: '0700000000',
+      email: 'idriss@jeko.africa',
+      password: 'admin2026',
+      telephone: '0708377704',
       role: 'admin',
       isActive: true,
     })
